@@ -30,6 +30,21 @@ RUN mkdir -p /tmp/install/ && \
     cd && \
     rm -rf /tmp/install
 
+## Install compatible openssl 0.9.8
+RUN mkdir -p /tmp/install/ && \
+    cd /tmp/install && \
+    wget http://www.openssl.org/source/openssl-0.9.8za.tar.gz && \
+    echo "2f989915f8fea49aa1bc37aa58500cce  openssl-0.9.8za.tar.gz" > md5sums && \
+    md5sum -c md5sums && \
+    tar xfz openssl-0.9.8za.tar.gz && \
+    cd openssl-0.9.8za && \
+    ./config --prefix=/usr/local --openssldir=/usr/local/openssl && \
+    make && \
+    make test && \
+    make install && \
+    cd && \
+    rm -rf /tmp/install
+
 ## Symlink libraries
 RUN for i in /usr/lib/x86_64-linux-gnu/*.so ; do f=`basename $i`;ln -sf x86_64-linux-gnu/$f /usr/lib/$f; done
 RUN for i in /usr/lib/x86_64-linux-gnu/*.a ; do f=`basename $i`;ln -sf x86_64-linux-gnu/$f /usr/lib/$f; done
