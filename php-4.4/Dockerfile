@@ -53,6 +53,7 @@ RUN for i in /usr/lib/x86_64-linux-gnu/*.a ; do f=`basename $i`;ln -sf x86_64-li
 RUN mkdir -p /tmp/install/ && \
     cd /tmp/install && \
     wget http://museum.php.net/php4/php-${PHP_VERSION}.tar.bz2 && \
+    echo "2e3b2a0e27f10cb84fd00e5ecd7a1880  php-4.4.9.tar.bz2" > md5sums && \
     md5sum -c md5sums && \
     tar xfj php-${PHP_VERSION}.tar.bz2 && \
     cd php-${PHP_VERSION} && \
@@ -104,7 +105,10 @@ RUN mkdir -p /tmp/install/ && \
         --with-pdo-mysql  \
         --enable-soap  \
         --with-tidy \
-        --with-libxml-dir=/usr/  \
+        --with-libxml-dir=/usr  \
         --with-openssl  \
-        --with-xsl || exit 0
+        --with-openssl-dir=/usr/local  \
+        --with-xsl && \
+    make && \
+    make install
  
