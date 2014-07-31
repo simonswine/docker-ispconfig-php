@@ -111,5 +111,47 @@ RUN mkdir -p /tmp/install/ && \
         --with-openssl-dir=/usr/local  \
         --with-xsl && \
     make && \
-    make install
- 
+    make install && \
+    rm -rf /tmp/install
+
+# Build module mailparse
+RUN mkdir -p /tmp/install/ && \
+    cd /tmp/install && \
+    wget http://pecl.php.net/get/mailparse-2.1.6.tgz && \
+    echo "0f84e1da1d074a4915a9bcfe2319ce84  mailparse-2.1.6.tgz" > md5sums && \
+    md5sum -c md5sums && \
+    tar xfz mailparse-2.1.6.tgz && \
+    cd mailparse-2.1.6 && \
+    phpize && \
+    ./configure && \
+    make && \
+    make install && \
+    rm -rf /tmp/install
+
+# Build module pecl_http
+RUN mkdir -p /tmp/install/ && \
+    cd /tmp/install && \
+    wget http://pecl.php.net/get/pecl_http-1.7.6.tgz && \
+    echo "4926c17a24a11a9b1cf3ec613fad97cb  pecl_http-1.7.6.tgz" > md5sums && \
+    md5sum -c md5sums && \
+    tar xfz pecl_http-1.7.6.tgz && \
+    cd pecl_http-1.7.6 && \
+    phpize && \
+    ./configure && \
+    make && \
+    make install && \
+    rm -rf /tmp/install
+
+# Build module xdebug
+RUN mkdir -p /tmp/install/ && \
+    cd /tmp/install && \
+    wget http://pecl.php.net/get/xdebug-2.0.5.tgz && \
+    echo "2d87dab7b6c499a80f0961af602d030c  xdebug-2.0.5.tgz" > md5sums && \
+    md5sum -c md5sums && \
+    tar xfz xdebug-2.0.5.tgz && \
+    cd xdebug-2.0.5 && \
+    phpize && \
+    ./configure && \
+    make && \
+    make install && \
+    rm -rf /tmp/install
