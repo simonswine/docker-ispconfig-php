@@ -12,7 +12,8 @@ RUN apt-get update &&  \
         libjpeg-dev zlib1g-dev libfreetype6-dev libfontconfig1-dev \
         libgpg-error-dev uuid-dev libt1-dev libsnmp-dev libc-client2007e-dev \
         libaspell-dev libbz2-dev libc-client2007e-dev flex bison libsqlite3-dev libpq-dev \
-    libcurl4-openssl-dev libmagickwand-dev libgd2-xpm-dev && \
+        libcurl4-openssl-dev libmagickwand-dev libgd2-xpm-dev autoconf imagemagick \
+        graphicsmagick && \
     DEBIAN_FRONTEND=noninteractive apt-get -y dist-upgrade && \
     apt-get clean && \
     rm /var/lib/apt/lists/*_*
