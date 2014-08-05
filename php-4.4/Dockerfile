@@ -58,7 +58,8 @@ RUN mkdir -p /tmp/install/ && \
     md5sum -c md5sums && \
     tar xfj php-${PHP_VERSION}.tar.bz2 && \
     cd php-${PHP_VERSION} && \
-    ./configure --enable-cgi \
+    ./configure \
+        --enable-fastcgi \
         --with-libdir=lib/x86_64-linux-gnu \
         --with-mcrypt  \
         --with-zlib \
