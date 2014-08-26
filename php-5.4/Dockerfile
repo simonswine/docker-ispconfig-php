@@ -64,7 +64,7 @@ RUN mkdir -p /tmp/install/ && \
         --with-ldap \
         --with-mcrypt \
         --with-mhash  \
-        --with-snmp \
+        --with-snmp=shared \
         --enable-ctype \
         --with-freetype-dir=shared,/usr  \
         --with-jpeg-dir=/usr  \
