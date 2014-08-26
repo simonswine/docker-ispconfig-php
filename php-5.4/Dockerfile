@@ -120,9 +120,9 @@ RUN mkdir -p /tmp/install/ && \
     make install && \
     rm -rf /tmp/install
 
-RUN pecl install channel://pecl.php.net/pecl_http-1.7.6
+RUN pecl install channel://pecl.php.net/pecl_http-2.0.7
 RUN pecl install channel://pecl.php.net/xdebug-2.2.5
-RUN pecl install channel://pecl.php.net/imagick-3.0.1
+RUN pecl install channel://pecl.php.net/imagick-3.2.0RC
 RUN pecl install channel://pecl.php.net/apc-3.1.13
 RUN pecl install channel://pecl.php.net/mailparse-2.1.6
 RUN pecl install channel://pecl.php.net/geoip-1.0.8
