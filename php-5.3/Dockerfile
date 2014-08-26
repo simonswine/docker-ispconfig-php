@@ -3,7 +3,7 @@ FROM ubuntu:precise
 
 MAINTAINER Christian Simon <simon@swine.de>
 
-ENV PHP_VERSION 5.3.28
+ENV PHP_VERSION 5.3.29
 
 # Update everything & install prequesites
 RUN apt-get update &&  \
@@ -27,7 +27,7 @@ RUN cp /usr/lib/libc-client.a /usr/lib/x86_64-linux-gnu/
 RUN mkdir -p /tmp/install/ && \
     cd /tmp/install && \
     wget http://de2.php.net/distributions/php-${PHP_VERSION}.tar.bz2 && \
-    echo "56ff88934e068d142d6c0deefd1f396b  php-${PHP_VERSION}.tar.bz2" > md5sums && \
+    echo "9469e240cbe6ac865aeaec89b253dd30  php-${PHP_VERSION}.tar.bz2" > md5sums && \
     md5sum -c md5sums && \
     tar xfj php-${PHP_VERSION}.tar.bz2 && \
     cd php-${PHP_VERSION} && \
