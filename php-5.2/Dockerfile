@@ -130,3 +130,14 @@ RUN mkdir -p /tmp/install/ && \
     tar xfj ioncube_loaders_lin_x86-64.tar.bz2 && \
     mv ioncube/ioncube_loader_lin_5.2.so $(php-config --extension-dir)/ioncube_loader.so && \
     rm -rf /tmp/install
+
+# Install sendmail replacement / set ip address of real mailserver to 172.17.42.1
+RUN mkdir -p /tmp/install/ && \
+    cd /tmp/install && \
+    wget http://www.acme.com/software/mini_sendmail/mini_sendmail-1.3.8.tar.gz && \
+    tar xfz mini_sendmail-1.3.8.tar.gz && \
+    cd mini_sendmail*/ && \
+    sed -i 's/"127\.0\.0\.1"/"172.17.42.1"/g' mini_sendmail.c && \
+    make && \
+    cp -v mini_sendmail /usr/sbin/sendmail && \
+    rm -rf /tmp/install

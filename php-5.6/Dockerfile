@@ -163,3 +163,14 @@ RUN echo "extension=memcache.so" > /etc/php5/conf.d/30_memcache.ini
 
 # Test if there is stderr output
 RUN bash -c "[[ $(php -i 2>&1 > /dev/null | wc -l) -ne 0 ]] && php -i > /dev/null && exit 1; exit 0"
+
+# Install sendmail replacement / set ip address of real mailserver to 172.17.42.1
+RUN mkdir -p /tmp/install/ && \
+    cd /tmp/install && \
+    wget http://www.acme.com/software/mini_sendmail/mini_sendmail-1.3.8.tar.gz && \
+    tar xfz mini_sendmail-1.3.8.tar.gz && \
+    cd mini_sendmail*/ && \
+    sed -i 's/"127\.0\.0\.1"/"172.17.42.1"/g' mini_sendmail.c && \
+    make && \
+    cp -v mini_sendmail /usr/sbin/sendmail && \
+    rm -rf /tmp/install
