@@ -162,4 +162,4 @@ RUN echo "extension=memcache.so" > /etc/php5/conf.d/30_memcache.ini
 #    rm -rf /tmp/install
 
 # Test if there is stderr output
-RUN bash -c "[[ $(php -i > /dev/null 2>&1 | wc -l) -ne 0 ]] && php -i > /dev/null && exit 1; exit 0"
+RUN bash -c "[[ $(php -i 2>&1 > /dev/null | wc -l) -ne 0 ]] && php -i > /dev/null && exit 1; exit 0"

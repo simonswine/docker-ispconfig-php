@@ -163,4 +163,4 @@ RUN mkdir -p /tmp/install/ && \
 RUN echo "zend_extension=$(php-config --extension-dir)/ioncube_loader.so" > /etc/php5/conf.d/20_ioncube_loder.ini
 
 # Test if there is stderr output
-RUN bash -c "[[ $(php -i > /dev/null 2>&1 | wc -l) -ne 0 ]] && php -i > /dev/null && exit 1; exit 0"
+RUN bash -c "[[ $(php -i 2>&1 > /dev/null | wc -l) -ne 0 ]] && php -i > /dev/null && exit 1; exit 0"
