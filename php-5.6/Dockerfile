@@ -94,6 +94,15 @@ RUN mkdir -p /tmp/install/ && \
     make install && \
     rm -rf /tmp/install
 
+# Create config directory
+RUN mkdir -p /etc/php5/conf.d/
+
+# Set location and timestamp
+RUN echo "date.timezone=Europe/Berlin\ndate.default_latitude=49.08\ndate.default_longitude=11.22" > /etc/php5/conf.d/10_timezone.ini
+
+# Enable opcache
+RUN echo "zend_extension=$(php-config --extension-dir)/opcache.so" > /etc/php5/conf.d/20_opcache.ini
+
 # Build module xhprof-0.9.4
 RUN mkdir -p /tmp/install/ && \
     cd /tmp/install && \
@@ -124,12 +133,24 @@ RUN mkdir -p /tmp/install/ && \
 #    rm -rf /tmp/install
 
 RUN pecl install channel://pecl.php.net/pecl_http-2.0.7
+RUN echo "extension=propro.so\nextension=raphf.so\nextension=http.so" > /etc/php5/conf.d/30_http.ini
+
 RUN pecl install channel://pecl.php.net/xdebug-2.2.5
+
 RUN pecl install channel://pecl.php.net/imagick-3.2.0RC1
+RUN echo "extension=imagick.so" > /etc/php5/conf.d/30_imagick.ini
+
 RUN pecl install channel://pecl.php.net/apcu-4.0.6
+RUN echo "extension=apcu.so" > /etc/php5/conf.d/30_acpu.ini
+
 RUN pecl install channel://pecl.php.net/mailparse-2.1.6
+RUN echo "extension=mailparse.so" > /etc/php5/conf.d/30_mailparse.ini
+
 RUN pecl install channel://pecl.php.net/geoip-1.0.8
+RUN echo "extension=geoip.so" > /etc/php5/conf.d/30_geoip.ini
+
 RUN pecl install channel://pecl.php.net/memcache-3.0.8
+RUN echo "extension=memcache.so" > /etc/php5/conf.d/30_memcache.ini
 
 ## TODO Inactive as ioncube has not released a php 5.6 compatible binary
 ## Install ioncube
@@ -140,3 +161,5 @@ RUN pecl install channel://pecl.php.net/memcache-3.0.8
 #    mv ioncube/ioncube_loader_lin_5.6.so $(php-config --extension-dir)/ioncube_loader.so && \
 #    rm -rf /tmp/install
 
+# Test if there is stderr output
+RUN bash -c "[[ $(php -i > /dev/null 2>&1 | wc -l) -ne 0 ]] && php -i > /dev/null && exit 1; exit 0"
