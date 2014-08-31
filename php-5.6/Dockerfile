@@ -3,8 +3,6 @@ FROM ubuntu:trusty
 
 MAINTAINER Christian Simon <simon@swine.de>
 
-ENV PHP_VERSION 5.6.0RC4
-
 # Update everything & install prequesites
 RUN apt-get update &&  \
     DEBIAN_FRONTEND=noninteractive apt-get -y install build-essential wget bzip2 \
@@ -27,10 +25,11 @@ RUN ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h
 
 
 # Download PHP
+ENV PHP_VERSION 5.6.0
 RUN mkdir -p /tmp/install/ && \
     cd /tmp/install && \
-    wget http://downloads.php.net/tyrael/php-${PHP_VERSION}.tar.bz2 && \
-    echo "475c5400ccebf34014239100767e3e40  php-${PHP_VERSION}.tar.bz2" > md5sums && \
+    wget http://de2.php.net/distributions/php-${PHP_VERSION}.tar.bz2 && \
+    echo "1f889357528809a6675e2f23995832d7  php-${PHP_VERSION}.tar.bz2" > md5sums && \
     md5sum -c md5sums && \
     tar xfj php-${PHP_VERSION}.tar.bz2 && \
     cd php-${PHP_VERSION} && \
