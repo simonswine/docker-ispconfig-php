@@ -3,8 +3,6 @@ FROM ubuntu:precise
 
 MAINTAINER Christian Simon <simon@swine.de>
 
-ENV PHP_VERSION 4.4.9
-
 # Update everything & install prequesites
 RUN apt-get update &&  \
     DEBIAN_FRONTEND=noninteractive apt-get -y install build-essential wget bzip2 \
@@ -51,6 +49,7 @@ RUN for i in /usr/lib/x86_64-linux-gnu/*.so ; do f=`basename $i`;ln -sf x86_64-l
 RUN for i in /usr/lib/x86_64-linux-gnu/*.a ; do f=`basename $i`;ln -sf x86_64-linux-gnu/$f /usr/lib/$f; done
 
 # Download PHP
+ENV PHP_VERSION 4.4.9
 RUN mkdir -p /tmp/install/ && \
     cd /tmp/install && \
     wget http://museum.php.net/php4/php-${PHP_VERSION}.tar.bz2 && \

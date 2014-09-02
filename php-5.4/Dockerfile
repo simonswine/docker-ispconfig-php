@@ -3,8 +3,6 @@ FROM ubuntu:trusty
 
 MAINTAINER Christian Simon <simon@swine.de>
 
-ENV PHP_VERSION 5.4.32
-
 # Update everything & install prequesites
 RUN apt-get update &&  \
     DEBIAN_FRONTEND=noninteractive apt-get -y install build-essential wget bzip2 \
@@ -27,6 +25,7 @@ RUN ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h
 
 
 # Download PHP
+ENV PHP_VERSION 5.4.32
 RUN mkdir -p /tmp/install/ && \
     cd /tmp/install && \
     wget http://de2.php.net/distributions/php-${PHP_VERSION}.tar.bz2 && \

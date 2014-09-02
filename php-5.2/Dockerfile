@@ -3,8 +3,6 @@ FROM ubuntu:precise
 
 MAINTAINER Christian Simon <simon@swine.de>
 
-ENV PHP_VERSION 5.2.17
-
 # Update everything & install prequesites
 RUN apt-get update &&  \
     DEBIAN_FRONTEND=noninteractive apt-get -y install build-essential wget bzip2 \
@@ -39,6 +37,7 @@ RUN mkdir -p /tmp/install/ && \
     rm -rf /tmp/install
 
 # Download PHP
+ENV PHP_VERSION 5.2.17
 RUN mkdir -p /tmp/install/ && \
     cd /tmp/install && \
     wget http://museum.php.net/php5/php-${PHP_VERSION}.tar.bz2 && \
