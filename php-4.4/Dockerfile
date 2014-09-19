@@ -7,7 +7,7 @@ MAINTAINER Christian Simon <simon@swine.de>
 RUN apt-get update &&  \
     DEBIAN_FRONTEND=noninteractive apt-get -y install build-essential wget bzip2 \
         libpng-dev libmcrypt-dev libmcrypt4 libmhash-dev libmysqlclient-dev \
-        libjpeg-dev zlib1g-dev libfreetype6-dev libfontconfig1-dev \
+        libjpeg-dev zlib1g-dev libfreetype6-dev libfontconfig1-dev re2c \
         libgpg-error-dev uuid-dev libt1-dev libsnmp-dev libc-client2007e-dev \
         libaspell-dev libbz2-dev libc-client2007e-dev flex bison libsqlite3-dev libpq-dev \
         libcurl4-openssl-dev libmagickwand-dev libgd2-xpm-dev autoconf imagemagick \
@@ -59,6 +59,8 @@ RUN mkdir -p /tmp/install/ && \
     cd php-${PHP_VERSION} && \
     ./configure \
         --enable-fastcgi \
+        --with-config-file-path=/etc/php4 \
+        --with-config-file-scan-dir=/etc/php4/conf.d \
         --with-libdir=lib/x86_64-linux-gnu \
         --with-mcrypt  \
         --with-zlib \
@@ -114,6 +116,15 @@ RUN mkdir -p /tmp/install/ && \
     make install && \
     rm -rf /tmp/install
 
+# Create config directory
+RUN mkdir -p /etc/php4/conf.d/
+
+# Set location and timestamp
+RUN echo "date.timezone=Europe/Berlin\ndate.default_latitude=49.08\ndate.default_longitude=11.22" > /etc/php4/conf.d/10_timezone.ini
+
+# Enable gd lib
+RUN echo "extension=gd.so" > /etc/php4/conf.d/30_gd.ini
+
 # Build module mailparse
 RUN mkdir -p /tmp/install/ && \
     cd /tmp/install && \
@@ -127,6 +138,7 @@ RUN mkdir -p /tmp/install/ && \
     make && \
     make install && \
     rm -rf /tmp/install
+RUN echo "extension=mailparse.so" > /etc/php4/conf.d/30_mailparse.ini
 
 # Build module pecl_http
 RUN mkdir -p /tmp/install/ && \
@@ -141,6 +153,7 @@ RUN mkdir -p /tmp/install/ && \
     make && \
     make install && \
     rm -rf /tmp/install
+RUN echo "extension=http.so" > /etc/php4/conf.d/30_http.ini
 
 # Build module xdebug
 RUN mkdir -p /tmp/install/ && \
@@ -165,3 +178,6 @@ RUN mkdir -p /tmp/install/ && \
     make SMTP_HOST=172.17.42.1 && \
     cp -v mini_sendmail /usr/sbin/sendmail && \
     rm -rf /tmp/install
+
+# Test if there is stderr output
+RUN bash -c "[[ $(php -i 2>&1 > /dev/null | wc -l) -ne 0 ]] && php -i > /dev/null && exit 1; exit 0"
