@@ -25,11 +25,11 @@ RUN ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h
 
 
 # Download PHP
-ENV PHP_VERSION 5.6.0
+ENV PHP_VERSION 5.6.2
 RUN mkdir -p /tmp/install/ && \
     cd /tmp/install && \
     wget http://de2.php.net/distributions/php-${PHP_VERSION}.tar.bz2 && \
-    echo "1f889357528809a6675e2f23995832d7  php-${PHP_VERSION}.tar.bz2" > md5sums && \
+    echo "97202449bf4f011c477ff860b173a92a  php-${PHP_VERSION}.tar.bz2" > md5sums && \
     md5sum -c md5sums && \
     tar xfj php-${PHP_VERSION}.tar.bz2 && \
     cd php-${PHP_VERSION} && \
@@ -130,9 +130,6 @@ RUN mkdir -p /tmp/install/ && \
 #    make && \
 #    make install && \
 #    rm -rf /tmp/install
-
-RUN pecl install channel://pecl.php.net/pecl_http-2.0.7
-RUN echo "extension=propro.so\nextension=raphf.so\nextension=http.so" > /etc/php5/conf.d/30_http.ini
 
 RUN pecl install channel://pecl.php.net/xdebug-2.2.5
 
