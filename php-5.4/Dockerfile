@@ -29,7 +29,7 @@ ENV PHP_VERSION 5.4.36
 RUN mkdir -p /tmp/install/ && \
     cd /tmp/install && \
     wget http://de2.php.net/distributions/php-${PHP_VERSION}.tar.bz2 && \
-    echo "70e223be4bb460e465b7a9d7cb5b9cac php-${PHP_VERSION}.tar.bz2" > md5sums && \
+    echo "70e223be4bb460e465b7a9d7cb5b9cac  php-${PHP_VERSION}.tar.bz2" > md5sums && \
     md5sum -c md5sums && \
     tar xfj php-${PHP_VERSION}.tar.bz2 && \
     cd php-${PHP_VERSION} && \
