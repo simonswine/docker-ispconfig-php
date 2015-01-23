@@ -25,11 +25,11 @@ RUN ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h
 
 
 # Download PHP
-ENV PHP_VERSION 5.5.20
+ENV PHP_VERSION 5.5.21
 RUN mkdir -p /tmp/install/ && \
     cd /tmp/install && \
     wget http://de2.php.net/distributions/php-${PHP_VERSION}.tar.bz2 && \
-    echo "9dfc1d4d2b44fb7e2b4ee9651d032203  php-${PHP_VERSION}.tar.bz2" > md5sums && \
+    echo "8fe631ac52a3df9d6429faad81cf2562  php-${PHP_VERSION}.tar.bz2" > md5sums && \
     md5sum -c md5sums && \
     tar xfj php-${PHP_VERSION}.tar.bz2 && \
     cd php-${PHP_VERSION} && \
