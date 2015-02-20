@@ -11,7 +11,7 @@ RUN apt-get update &&  \
         libgpg-error-dev uuid-dev libt1-dev libsnmp-dev libc-client2007e-dev \
         libaspell-dev libbz2-dev libc-client2007e-dev flex bison libsqlite3-dev libpq-dev \
         libcurl4-openssl-dev libmagickwand-dev libgd2-xpm-dev autoconf imagemagick \
-        graphicsmagick libdb-dev libtidy-dev libxslt-dev libgeoip-dev libicu-dev spawn-fcgi && \
+        graphicsmagick libdb-dev libtidy-dev libxslt-dev libgeoip-dev libicu-dev spawn-fcgi re2c   && \
     DEBIAN_FRONTEND=noninteractive apt-get -y dist-upgrade && \
     apt-get clean && \
     rm /var/lib/apt/lists/*_*
@@ -25,11 +25,11 @@ RUN ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h
 
 
 # Download PHP
-ENV PHP_VERSION 5.5.21
+ENV PHP_VERSION 5.5.22
 RUN mkdir -p /tmp/install/ && \
     cd /tmp/install && \
     wget http://de2.php.net/distributions/php-${PHP_VERSION}.tar.bz2 && \
-    echo "8fe631ac52a3df9d6429faad81cf2562  php-${PHP_VERSION}.tar.bz2" > md5sums && \
+    echo "cd5a6321d71897dec26e29e795926669  php-${PHP_VERSION}.tar.bz2" > md5sums && \
     md5sum -c md5sums && \
     tar xfj php-${PHP_VERSION}.tar.bz2 && \
     cd php-${PHP_VERSION} && \
