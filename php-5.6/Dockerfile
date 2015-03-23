@@ -25,11 +25,11 @@ RUN ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h
 
 
 # Download PHP
-ENV PHP_VERSION 5.6.6
+ENV PHP_VERSION 5.6.7
 RUN mkdir -p /tmp/install/ && \
     cd /tmp/install && \
     wget http://de2.php.net/distributions/php-${PHP_VERSION}.tar.bz2 && \
-    echo "b198117ee1d44c8143e030cee15f1b52  php-${PHP_VERSION}.tar.bz2" > md5sums && \
+    echo "2e4b0534d4b8aa9aabedeef12e7c0aa8  php-${PHP_VERSION}.tar.bz2" > md5sums && \
     md5sum -c md5sums && \
     tar xfj php-${PHP_VERSION}.tar.bz2 && \
     cd php-${PHP_VERSION} && \
