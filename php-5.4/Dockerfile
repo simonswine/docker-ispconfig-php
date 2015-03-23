@@ -25,11 +25,11 @@ RUN ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h
 
 
 # Download PHP
-ENV PHP_VERSION 5.4.38
+ENV PHP_VERSION 5.4.39
 RUN mkdir -p /tmp/install/ && \
     cd /tmp/install && \
     wget http://de2.php.net/distributions/php-${PHP_VERSION}.tar.bz2 && \
-    echo "2bf5007ba4bd012f9895c1b441dd4f50  php-${PHP_VERSION}.tar.bz2" > md5sums && \
+    echo "017f7ba7484e738c88bf19eec4369d78  php-${PHP_VERSION}.tar.bz2" > md5sums && \
     md5sum -c md5sums && \
     tar xfj php-${PHP_VERSION}.tar.bz2 && \
     cd php-${PHP_VERSION} && \
